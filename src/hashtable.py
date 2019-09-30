@@ -1,6 +1,8 @@
 # '''
 # Linked List hash table key/value pair
 # '''
+
+
 class LinkedPair:
     def __init__(self, key, value):
         self.key = key
@@ -31,19 +33,40 @@ class HashTable:
         Hash an arbitrary key using DJB2 hash
 
         OPTIONAL STRETCH: Research and implement DJB2
-        '''
-        pass
+        
+        '''                                 
+        hash = 5381
+        for x in s:
+            hash = (( hash << 5) + hash) + ord(x)
+        return hash & 0xFFFFFFFF
 
 
     def _hash_mod(self, key):
         '''
-        Take an arbitrary key and return a valid integer index
+        Take an arbitrary key and RETURN a VALID INTEGER INDEX
         within the storage capacity of the hash table.
+
+        The INDEX is coming from HERE!!!!!
         '''
         return self._hash(key) % self.capacity
 
 
     def insert(self, key, value):
+
+        index = self._hash_mod(key)        # This is the bloody index
+        node = self.storage[index]         # This is the index in storage.
+
+
+        while node is not None and node.key != key:
+            node = node.next
+
+        if node is None:                    # if there is no node, then
+            test = LinkedPair(key, value)
+            test.next = self.storage[index]
+            self.storage[index] = test 
+        else:
+            node.value = value
+        
         '''
         Store the value with the given key.
 
@@ -51,7 +74,7 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+       
 
 
 
@@ -67,6 +90,18 @@ class HashTable:
 
 
     def retrieve(self, key):
+
+        index = self._hash_mod(key)  # This is the bloody index
+        node = self.storage[index]   # This is the index in storage.
+
+        while node is not None and node.key != key:      # make sure that the node isn't empty (Raine)
+            node = node.next                             # traverse through the linked list using next
+        if node is None:
+            return None 
+        else:
+            return node.value
+        
+
         '''
         Retrieve the value stored with the given key.
 
