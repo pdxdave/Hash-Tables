@@ -61,7 +61,7 @@ class HashTable:
             node = node.next
 
         if node is None:                    # if there is no node, then
-            test = LinkedPair(key, value)
+            test = LinkedPair(key, value)   
             test.next = self.storage[index]
             self.storage[index] = test 
         else:
@@ -79,6 +79,18 @@ class HashTable:
 
 
     def remove(self, key):
+
+        index = self._hash_mod(key)
+        node = self.storage[index]
+
+        if node is not None and node.next is None:
+            self.storage[index] = None
+        elif node is not None and node.next is not None:
+            last_node = node.next
+            self.storage[index] = last_node
+        else:
+            print("That key isn't there")
+
         '''
         Remove the value stored with the given key.
 
@@ -86,7 +98,7 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+    
 
 
     def retrieve(self, key):
