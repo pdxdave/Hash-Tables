@@ -1,7 +1,12 @@
 # '''
 # Linked List hash table key/value pair
 # '''
+'''
+ O(n) to add something to a linked list.  Not too bad.
+ O(1) to add to the head or tail of a linked list. 
 
+a dictionary is python's implementation of a hash table
+'''
 
 class LinkedPair:
     def __init__(self, key, value):
@@ -74,7 +79,18 @@ class HashTable:
 
         Fill this in.
         '''
-       
+        '''
+        Brian's solution
+
+        index = self._hash_mod(key)
+
+        if self.storage[index] is not None:
+            print("Warning: Index collision")
+            return
+
+        self.storage[index] = value
+        
+        '''
 
 
 
@@ -97,6 +113,19 @@ class HashTable:
         Print a warning if the key is not found.
 
         Fill this in.
+        '''
+
+        '''
+        Brian's solution
+
+        index = self._hash_mod(key)
+
+        if self.storage[index] is None:
+            print("Warning: key not found")
+            return
+
+
+        
         '''
     
 
@@ -121,7 +150,20 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        '''
+        Brian's solution
+
+        self.capacity += 2
+
+        new_storage = [None] + self.capacity
+
+        for pair in self.storage:
+            if pair is not None:
+                new_index = self._hash_mod(pair.key)
+                new_storage(new_index) = pair
+        self.storage = new_storage
+        '''
+        
 
 
     def resize(self):
