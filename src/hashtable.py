@@ -167,13 +167,26 @@ class HashTable:
 
 
     def resize(self):
+
+        storage_two = [None] * self.capacity
+        self.storage.extend(storage_two)
+
+        for i in storage_two:
+            if i is not None and i.next is None:
+                self.storage[self._hash_mod(i.key)] = i
+            elif i is not None and i.next is not None:
+                i = i.next
+                self.storage[self._hash_mod(i.key)] = i 
+            else:
+                pass
+
         '''
         Doubles the capacity of the hash table and
         rehash all key/value pairs.
 
         Fill this in.
         '''
-        pass
+        
 
 
 
